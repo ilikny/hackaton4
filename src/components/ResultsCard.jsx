@@ -6,7 +6,8 @@ const ResultsCard = ({ el }) => {
   console.log(el);
   return (
     <div>
-      <img className="image" src={el.urls.regular} alt="" />
+      <Link to={`/photo/${el.id}`} ><img className="image" src={el.urls.regular} alt={el.alt_description} />
+      </Link>
       <Link to={`/user/${el.user.username}`}>
         <h4>{el.user.name}</h4>
       </Link>

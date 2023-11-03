@@ -1,10 +1,11 @@
 import "./App.css";
 import PictureContext from "./contexts/PIcturesContext";
-import accessKey from "./keys";
+import accessKey from "../keys";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Homepage from "./components/Homepage";
 import { useContext, useEffect, useState } from "react";
 import DetailPage from "./components/DetailPage";
+import DetailImage from "./components/DetailImage";
 
 function App() {
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -49,6 +50,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/user/:username" element={<DetailPage />} />
+          <Route path="/photo/:id" element={ <DetailImage />} />
         </Routes>
       </BrowserRouter>
     </PictureContext.Provider>

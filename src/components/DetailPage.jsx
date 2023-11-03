@@ -2,7 +2,7 @@ import React from "react";
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
 // import PictureContext from "../contexts/PIcturesContext";
-import accessKey from "../keys";
+import accessKey from "../../keys";
 import { useEffect } from "react";
 import { useState } from "react";
 import instagramIcon from "../assets/insta.svg";
