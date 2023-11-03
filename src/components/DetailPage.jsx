@@ -9,13 +9,14 @@ import instagramIcon from "../assets/insta.svg";
 import "./DetailPage.scss";
 import PictureContext from "../contexts/PIcturesContext";
 import ButtonsPagination from "./ButtonsPagination";
+import { Link } from "react-router-dom";
 
 const DetailPage = () => {
   const [user, setUser] = useState(null);
   const [photos, setPhotos] = useState(null);
-  const {page} = useContext(PictureContext)
+  const { page } = useContext(PictureContext);
 
-  console.log(page)
+  console.log(page);
   const { username } = useParams();
 
   const getUser = async () => {
@@ -42,6 +43,7 @@ const DetailPage = () => {
   return (
     <div className="detail-page">
       <div className="detail-page_content">
+        <Link to="/">Back to home</Link>
         <div className="profile">
           <div className="profile-image">
             <img src={user?.profile_image.large} alt="Profile" />
