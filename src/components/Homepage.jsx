@@ -3,8 +3,10 @@ import SearchResult from "./SearchResult";
 
 export default function Homepage(){
 
-  return (<>
+  return (
+  <>
     <SearchBar />
+    
     <SearchResult />
     </>
   )

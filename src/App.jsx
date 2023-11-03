@@ -1,6 +1,6 @@
 import "./App.css";
 import PictureContext from "./contexts/PIcturesContext";
-import accestKey from "../keys";
+import accessKey from "./keys";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Homepage from "./components/Homepage";
 import { useContext, useEffect, useState } from "react";
@@ -10,20 +10,23 @@ function App() {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [searchKeywordAuthor, setSearchKeywordAuthors] = useState("");
   const [dataRetrieved, setDataRetrieved] = useState([]);
+  const [page, setPage] = useState(1)
 
   const loadData = async (url) => {
     const response = await fetch(url);
     const data = await response.json();
 
-    // console.log(data)
+    console.log(data)
     setDataRetrieved(data);
   };
 
   useEffect(() => {
+    // console.log(`https://api.unsplash.com/search/photos?page=${page}&per_page=12&query=${searchKeyword}&client_id=${accessKey}`);
+    if (!searchKeyword) return
     loadData(
-      `https://api.unsplash.com/search/photos?per_page=12&query=${searchKeyword}&client_id=${accestKey}`
+      `https://api.unsplash.com/search/photos?page=${page}&per_page=12&query=${searchKeyword}&client_id=${accessKey}`
     );
-  }, [searchKeyword]);
+  }, [searchKeyword, page]);
 
   // useEffect(() => {
   //   loadData(
@@ -38,6 +41,8 @@ function App() {
         setSearchKeyword,
         dataRetrieved,
         setSearchKeywordAuthors,
+        page,
+        setPage
       }}
     >
       <BrowserRouter>

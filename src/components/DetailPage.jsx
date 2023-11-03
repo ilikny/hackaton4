@@ -2,16 +2,20 @@ import React from "react";
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
 // import PictureContext from "../contexts/PIcturesContext";
-import accessKey from "../../keys";
+import accessKey from "../keys";
 import { useEffect } from "react";
 import { useState } from "react";
 import instagramIcon from "../assets/insta.svg";
 import "./DetailPage.scss";
+import PictureContext from "../contexts/PIcturesContext";
+import ButtonsPagination from "./ButtonsPagination";
 
 const DetailPage = () => {
   const [user, setUser] = useState(null);
   const [photos, setPhotos] = useState(null);
+  const {page} = useContext(PictureContext)
 
+  console.log(page)
   const { username } = useParams();
 
   const getUser = async () => {
@@ -20,20 +24,20 @@ const DetailPage = () => {
     );
     const data = await response.json();
     setUser(data);
-    console.log("THE USER", data);
+    // console.log("THE USER", data);
     // Get photos
 
     const photos = await fetch(
-      `https://api.unsplash.com/users/${username}/photos?per_page=12&client_id=${accessKey}`
+      `https://api.unsplash.com/users/${username}/photos?page=${page}&per_page=12&client_id=${accessKey}`
     );
     const photosToJson = await photos.json();
     setPhotos(photosToJson);
-    console.log("FF", photosToJson);
+    // console.log("FF", photosToJson);
   };
 
   useEffect(() => {
     getUser();
-  }, []);
+  }, [page]);
 
   return (
     <div className="detail-page">
@@ -71,11 +75,13 @@ const DetailPage = () => {
         </div>
         <div className="biography">{user?.bio}</div>
         <h2>Photos:</h2>
+        <ButtonsPagination />
         <div className="photos">
           {photos?.map((el) => (
             <img key={el.id} src={el.urls.regular} />
           ))}
         </div>
+        <ButtonsPagination />
         <p>{user?.portfolio_url}</p>
       </div>
     </div>
